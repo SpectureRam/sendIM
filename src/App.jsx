@@ -19,20 +19,29 @@ const CompanyPage = React.lazy(()=>import("./pages/About/Company"))
 
 import ErrorBoundary from "./routes/errorBoundary";
 import ProtectedRoute from "./routes/protectedRoute";
-import authRoutes from './routes/AuthRoutes';
 function App() {
   return (
     <ErrorBoundary>
     <Router>
       <Routes>
-      {
+      {/* {
       authRoutes.map((route) => (
         <Route key={route.id} path={route.path} element={route.element} />
       ))
-      }
+      } */}
         <Route path='/' element={
           <React.Suspense fallback={<div>Loading...!</div>}>
             <Home/>
+          </React.Suspense>
+        }/>
+        <Route path='/login' element={
+          <React.Suspense fallback={<div>Loading...!</div>}>
+            <SignIn/>
+          </React.Suspense>
+        }/>
+        <Route path='/signup' element={
+          <React.Suspense fallback={<div>Loading...!</div>}>
+            <SignUp/>
           </React.Suspense>
         }/>
         <Route path='/home' element={
