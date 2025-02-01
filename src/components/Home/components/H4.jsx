@@ -3,7 +3,7 @@ import React from 'react'
 const H4 = () => {
   return (
     <section>
-  <div class="container p-20 mt-[-5%]">
+  <div class="container p-20">
     <div class="grid w-full grid-cols-1 gap-6 mx-auto lg:grid-cols-3">
       <div class="p-6">
         <div class="inline-flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto mb-5 text-blue-600 rounded-full bg-blue-50">

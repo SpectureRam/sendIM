@@ -2,7 +2,7 @@ import {io} from "socket.io-client"
 import JoinChatForm from "../JoinChatForm/JoinChatForm";
 import { useEffect, useState } from "react";
 import ChatWindow from "../ChatWindow/ChatWindow";
-const socket = io("http://localhost:3002")
+const socket = io("https://puffy-veiled-racer.glitch.me")
 
 const App = () => {
   const [isInRoom,setisInRoom] = useState(false);

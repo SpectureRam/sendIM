@@ -2,7 +2,7 @@ import React from 'react';
 import img from "./../../../assets/3.jpg"
 const H2 = () => {
   return (
-    <section className="py-20 p-20">
+    <section className="sm:py-12 lg:py-20 p-4 md:p-10 pt-28">
   <div className="container">
     <div className="flex flex-col items-center gap-4">
       <div className="inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold">

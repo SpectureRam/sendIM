@@ -2,8 +2,8 @@ import React from 'react'
 
 const H1 = () => {
   return (
-    <section className="relative overflow-hidden py-24">
-  <div className="container">
+    <section className="relative overflow-hidden lg:py-9">
+  <div className="container px-4 sm:px-6 md:px-8 lg:px-12 pt-8 sm:pt-12">
     <div className="mx-auto flex max-w-5xl flex-col items-center">
       <svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080" fill="none"
         className="absolute hidden opacity-25 [mask-image:linear-gradient(to_right,white,transparent,transparent,white)] lg:block">
@@ -76,11 +76,11 @@ const H1 = () => {
             <rect width="1920" height="1080" fill="#000000"></rect>
           </clipPath>
           <clipPath id="clip1_4_5">
-            <rect width="1920" height="1080" fill="#000000" transform="tranzinc(-1 4)"></rect>
+            <rect width="1920" height="1080" fill="#000000" transform="translate(-1 4)"></rect>
           </clipPath>
         </defs>
       </svg>
-      <div className="z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 text-center">
+      <div className="z-10 mx-auto flex max-w-5xl md:py-4 lg:py-0 flex-col items-center gap-6 text-center">
         <div
           className="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground">
           New Release<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -91,7 +91,7 @@ const H1 = () => {
           </svg>
         </div>
         <div>
-          <h1 className="mb-6 text-pretty text-4xl font-bold lg:text-7xl">
+          <h1 className="mb-6 text-pretty text-4xl font-bold lg:text-7xl leading-relaxed" style={{ lineHeight: '1' }}>
             Organize groups and chat among friends privately !
           </h1>
           <p className="text-zinc-600 lg:text-xl">

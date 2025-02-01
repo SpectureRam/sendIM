@@ -9,7 +9,7 @@ const H5 = () => {
   })
 
   return (
-    <section className="py-32" ref={ref}>
+    <section className="sm:py-8 md:py-8 lg:py-26 pt-12" ref={ref}>
       <div className="container">
         <h1 className="text-center text-4xl font-semibold lg:text-6xl">
           Lightning-fast messaging with real-time chat updates.

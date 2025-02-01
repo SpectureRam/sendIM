@@ -2,8 +2,8 @@ import React from 'react'
 import logo from "./../../assets/logo.png"
 const Footer = () => {
   return (
-    <footer className="bg-white">
-  <div className="mx-auto max-w-screen-xl space-y-8 px-4 py-16 sm:px-6 lg:space-y-16 lg:px-8">
+    <footer className="bg-white py-8 md:py-12 lg:py-16">
+  <div className="mx-auto max-w-screen-xl space-y-4 md:space-y-6 lg:space-y-8 px-4 md:px-6 lg:px-8">
     <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
       <div>
         <div className="text-teal-600">
@@ -96,7 +96,7 @@ const Footer = () => {
               target="_blank"
               className="text-gray-700 transition hover:opacity-75"
             >
-              <span className="sr-only">Dribbble</span>
+              <span className="sr-only">Dribble</span>
 
               <svg className="size-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path
@@ -112,85 +112,73 @@ const Footer = () => {
 
       <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:col-span-2 lg:grid-cols-4">
         <div>
-          <p className="font-medium text-gray-900">Services</p>
-
-          <ul className="mt-6 space-y-4 text-sm">
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> 1on1 Coaching </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Company Review </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> HR Consulting </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> SEO Optimisation </a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <p className="font-medium text-gray-900">Company</p>
-
-          <ul className="mt-6 space-y-4 text-sm">
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> About </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Meet the Team </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Accounts Review </a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
-          <p className="font-medium text-gray-900">Helpful Links</p>
-
-          <ul className="mt-6 space-y-4 text-sm">
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Contact </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> FAQs </a>
-            </li>
-
-            <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Live Chat </a>
-            </li>
-          </ul>
-        </div>
-
-        <div>
           <p className="font-medium text-gray-900">Legal</p>
 
           <ul className="mt-6 space-y-4 text-sm">
             <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Accessibility </a>
+              <a href="/terms-of-service" className="text-gray-700 transition hover:opacity-75"> Terms of Service </a>
             </li>
 
             <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Returns Policy </a>
+              <a href="/privacy-policy" className="text-gray-700 transition hover:opacity-75"> Privacy Policy </a>
             </li>
 
             <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Refund Policy </a>
+              <a href="/cookie-policy" className="text-gray-700 transition hover:opacity-75"> Cookie Policy </a>
             </li>
 
             <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Hiring Statistics </a>
+              <a href="/about-us" className="text-gray-700 transition hover:opacity-75"> About us </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p className="font-medium text-gray-900">About</p>
+
+          <ul className="mt-6 space-y-4 text-sm">
+            <li>
+              <a href="/about-us" className="text-gray-700 transition hover:opacity-75"> About us </a>
+            </li>
+
+            <li>
+              <a href="/company" className="text-gray-700 transition hover:opacity-75"> Company </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p className="font-medium text-gray-900">Support</p>
+
+          <ul className="mt-6 space-y-4 text-sm">
+            <li>
+              <a href="/contact-us" className="text-gray-700 transition hover:opacity-75"> Contact us </a>
+            </li>
+
+            <li>
+              <a href="/faq" className="text-gray-700 transition hover:opacity-75"> FAQ </a>
+            </li>
+
+            <li>
+              <a href="/report-abuse" className="text-gray-700 transition hover:opacity-75"> Report Abuse </a>
+            </li>
+
+            <li>
+              <a href="/help" className="text-gray-700 transition hover:opacity-75"> Help </a>
+            </li>
+          </ul>
+        </div>
+
+        <div>
+          <p className="font-medium text-gray-900">Account</p>
+
+          <ul className="mt-6 space-y-4 text-sm">
+            <li>
+              <a href="#" className="text-gray-700 transition hover:opacity-75"> Login </a>
+            </li>
+
+            <li>
+              <a href="#" className="text-gray-700 transition hover:opacity-75"> Sign up </a>
             </li>
           </ul>
         </div>

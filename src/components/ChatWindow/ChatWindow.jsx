@@ -3,13 +3,25 @@ import { v4 as uuidv4 } from "uuid";
 import { IoSend } from "react-icons/io5";
 import { FaUser } from "react-icons/fa";
 import { toast } from 'react-toastify';
+import logo from "../../assets/2.png"
+import { FaArrowDown, FaArrowUp } from "react-icons/fa";
 
 const ChatWindow = ({ userName, roomId, socket }) => {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messages, setMessages] = useState([]);
   const [participants, setParticipants] = useState([]);
+  const [isParticipantsListOpen, setIsParticipantsListOpen] = useState(false);
   const hasJoinedMessageBeenAdded = useRef(false);
   const maxMessageLength = 200;
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   useEffect(() => {
     if (!hasJoinedMessageBeenAdded.current) {
@@ -118,8 +130,9 @@ const ChatWindow = ({ userName, roomId, socket }) => {
       <header className="bg-blue-600 text-white p-4 shadow-lg">
         <div className="flex items-center justify-between max-w-4xl mx-auto">
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
-              <FaUser className="text-xl" />
+            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+              <FaUser  className="text-xl" />
+              <img src={logo}/>
             </div>
             <div>
               <h1 className="text-xl font-bold">Room: {roomId}</h1>
@@ -134,64 +147,109 @@ const ChatWindow = ({ userName, roomId, socket }) => {
 
       {/* Participants List */}
       <div className="bg-white p-4 shadow-sm">
-        <div className="max-w-4xl mx-auto">
-          <h2 className="text-sm font-medium text-gray-500">Online Participants:</h2>
-          <div className="flex flex-wrap gap-2 mt-2">
-          {participants.map((participant, index) => (
-              <div
-                key={index}
-                className="px-3 py-1 bg-gray-200 rounded-full text-xs text-gray-700"
-              >
-                {participant.userName || "Unknown User"}
-              </div>
-            ))}
-
+        <div className="max-w-4xl mx-auto flex items-center justify-between">
+          <div className="flex-1 flex flex-wrap items-center">
+            <h2 className="text-sm font-medium text-gray-500">Online Participants:</h2>
+            {participants.length <= 5? (
+              <div className="flex flex-wrap gap-2 ml-2">
+                {participants.map((participant, index) => (
+                  <div
+                    key={index}
+                    className="px-3 py-0 bg-gray-200 rounded-full text-xs text-gray-700"
+                  >
+                    {participant.userName || "Unknown User"}
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <div className="flex flex-wrap gap-2 ml-2 pt-2">
+                {participants.slice(0, 5).map((participant, index) => (
+                  <div
+                    key={index}
+                    className="px-3 py-1 bg-gray-200 rounded-full text-xs text-gray-700"
+                  >
+                    {participant.userName || "Unknown User"}
+                  </div>
+                ))}
+                {isParticipantsListOpen? (
+                  <div className="flex flex-wrap gap-2">
+                    {participants.slice(5).map((participant, index) => (
+                      <div
+                        key={index + 5}
+                        className="px-3 py-1 bg-gray-200 rounded-full text-xs text-gray-700"
+                      >
+                        {participant.userName || "Unknown User"}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="px-3 py-1 bg-gray-200 rounded-full text-xs text-gray-700">
+                    + {participants.length - 5} more
+                  </div>
+                )}
+              </div>
+            )}
           </div>
+          {participants.length > 5 && (
+            <button
+              className="text-sm text-gray-500 hover:text-gray-700 transition-colors"
+              onClick={() => setIsParticipantsListOpen(!isParticipantsListOpen)}
+            >
+              {isParticipantsListOpen? (
+                <FaArrowUp/>
+              ) : (
+                <FaArrowDown/>
+              )}
+            </button>
+          )}
         </div>
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-4 space-y-4">
-    <div className="max-w-4xl mx-auto">
-        {messages.map((msg) =>
-        msg.type === "notif" ? (
-            <div key={msg.id} className="text-center text-sm text-gray-500 my-2">
-            {msg.text}
-            </div>
-        ) : (
-            <div
-            key={msg.id}
-            className={`flex ${
-                msg.userName === userName ? "justify-end" : "justify-start"
-            }`}
-            >
-            <div
+ {/* Messages */}
+<div className="flex-1 overflow-y-auto p-4 space-y-4 h-screen">
+  <div className="max-w-4xl mx-auto flex-1">
+    {messages.map((msg) =>
+      msg.type === "notif"? (
+        <div key={msg.id} className="text-center text-sm text-gray-500 my-2">
+          {msg.text}
+        </div>
+      ) : (
+        <div
+          key={msg.id}
+          className={`flex ${
+            msg.userName === userName? "justify-end" : "justify-start"
+          }`}
+        >
+          <div
             className={`max-w-[70%] rounded-lg p-3 mb-1 shadow-md ${
-                msg.userName === userName ? "bg-blue-600 text-white" : "bg-white text-gray-800"
+              msg.userName === userName? "bg-blue-600 text-white" : "bg-white text-gray-800"
             }`}
             style={{ wordBreak: "break-word", overflowWrap: "break-word" }}
-            >
+          >
+            <div className="flex flex-col">
+              <p className="text-xs font-medium mb-1">
+                {msg.userName}
+              </p>
+              <p className="mb-1">{msg.text}</p>
+              <div className="text-xs text-right w-full">
+                {new Date().toLocaleTimeString("en-US", {
+                  hour: "numeric",
+                  minute: "numeric",
+                  hour12: true,
+                })}
+              </div>
+            </div>
+          </div>
+        </div>
+      )
+    )}
+    <div ref={messagesEndRef} />
+  </div>
+</div>
 
-                <div className="flex items-center justify-between">
-                <p className="mb-1 mr-1">{msg.text}</p>
-                <p
-                    className={`text-xs ${
-                    msg.userName === userName ? "text-blue-100" : "text-gray-500"
-                    }`}
-                >
-                    {new Date().toLocaleTimeString("en-US", {
-                    hour: "numeric",
-                    minute: "numeric",
-                    hour12: true,
-                    })}
-                </p>
-                </div>
-            </div>
-            </div>
-        )
-        )}
-    </div>
-    </div>
+
+
 
 
       {/* Input */}
