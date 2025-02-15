@@ -16,21 +16,12 @@ const Help = React.lazy(()=>import('./pages/Support/Help'))
 const ReportAbuse = React.lazy(()=>import('./pages/Support/ReportAbuse'))
 const CompanyPage = React.lazy(()=>import("./pages/About/Company"))
 const BuildingPage = React.lazy(()=> import("./components/Home/components/BuildingPage"))
-
-import ErrorBoundary from "./routes/errorBoundary";
-import ProtectedRoute from "./routes/protectedRoute";
 import Loader from "./components/Loader/Loader";
 
 function App() {
   return (
-    <ErrorBoundary>
     <Router>
       <Routes>
-      {/* {
-      authRoutes.map((route) => (
-        <Route key={route.id} path={route.path} element={route.element} />
-      ))
-      } */}
         <Route path='/' element={
           <React.Suspense fallback={<Loader/>}>
             <Home/>
@@ -113,7 +104,6 @@ function App() {
           } />
       </Routes>
     </Router>
-    </ErrorBoundary>
   );
 }
 
