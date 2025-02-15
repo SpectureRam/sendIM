@@ -166,23 +166,23 @@ const ChatWindow = ({ userName, roomId, socket, email }) => {
           </div>
           <div className="flex items-center gap-4">
           <button
-            onClick={() => {
-              setIsDarkMode(!isDarkMode);
-              handleLogout();
-            }}
+            onClick={() => setIsDarkMode(!isDarkMode)}
+            className="p-2 rounded-lg focus:outline-none transition-colors"
           >
             {isDarkMode ? <FiSun className="text-xl" /> : <FiMoon className="text-xl" />}
-            </button>
-            <button
-              onClick={handleLogout}
-              className={`p-1.5 rounded-full ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-400'} transition-colors`}
-            >
-             <LogOutIcon/>
-            </button>
-            <div className={`text-sm ${isDarkMode ? 'bg-gray-700' : 'bg-blue-500'} px-3 py-1 rounded-full`}>
-              {participants.length} participant{participants.length !== 1 && "s"} online
-            </div>
+          </button>
+
+          <button
+            onClick={handleLogout}
+            className={`p-2 rounded-lg ${isDarkMode ? 'bg-gray-700 hover:bg-gray-600' : 'bg-blue-800 hover:bg-blue-400'} transition-colors`}
+          >
+            <LogOutIcon className="text-white" />
+          </button>
+
+          <div className={`px-4 py-2 text-sm font-semibold rounded-lg shadow-md ${isDarkMode ? 'bg-gray-700 text-gray-300' : 'bg-gray-200 text-gray-800'}`}>
+            {participants.length} Online
           </div>
+        </div>
         </div>
       </header>
 

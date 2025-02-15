@@ -68,7 +68,9 @@ const SignupPage = () => {
           return;
         } else {
           toast.success("Account created! Please check your email to verify.");
-          navigate("/login");
+          setTimeout(() => {
+            navigate("/login");
+          }, 2000);
         }
       }
     } catch (error) {

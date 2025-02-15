@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
 import logo from "./../../assets/logo.png";
 import supabase from "../../../supabaseClient";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -11,31 +13,47 @@ const Navbar = () => {
 
   useEffect(() => {
     const fetchUser = async () => {
-      const { data: { user: currentUser }, error } = await supabase.auth.getUser();
-      
-      if (error) {
-        console.error("Error fetching user:", error);
+      try {
+        // Check if session exists first
+        const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+  
+        if (sessionError || !sessionData.session) {
+          setUser(null);
+          setIsAuthenticated(false);
+          return;
+        }
+  
+        // Fetch user details if session exists
+        const { data: userData, error: userError } = await supabase.auth.getUser();
+  
+        if (userError) {
+          console.error("Error fetching user:", userError);
+          setUser(null);
+          setIsAuthenticated(false);
+        } else {
+          setUser(userData.user);
+          setIsAuthenticated(!!userData.user);
+        }
+      } catch (error) {
+        console.error("Unexpected error fetching user:", error);
         setUser(null);
         setIsAuthenticated(false);
-      } else {
-        setUser(currentUser);
-        setIsAuthenticated(!!currentUser);
       }
     };
-
+  
     fetchUser();
-
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((event, session) => {
+  
+    // Listen for authentication state changes
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
       setUser(session?.user || null);
       setIsAuthenticated(!!session?.user);
     });
-
+  
     return () => {
       subscription?.unsubscribe();
     };
   }, []);
+  
 
   const handleMouseEnter = (menu) => {
     clearTimeout(dropdownTimerRef.current);
@@ -67,7 +85,7 @@ const Navbar = () => {
         return;
       }
       
-      navigate('/');
+      window.location.href = "/";
       
       toast.success('Logged out successfully');
     } catch (error) {
@@ -261,26 +279,25 @@ const Navbar = () => {
                 </div>
                 <ul className="space-y-2 p-4">
                   <li><a href="/chat" className="block py-2 border-b hover:bg-gray-100">Chat Room</a></li>
-                  <li><a href="/use-cases" className="block py-2 border-b hover:bg-gray-100">Use Cases</a></li>
-                  <li><a href="/developers" className="block py-2 border-b hover:bg-gray-100">Developers</a></li>
-                  <li><a href="/resources" className="block py-2 hover:bg-gray-100">Resources</a></li>
+                  <li><a href="/upcoming" className="block py-2 border-b hover:bg-gray-100">Use Cases</a></li>
+                  <li><a href="/upcoming" className="block py-2 border-b hover:bg-gray-100">Developers</a></li>
+                  <li><a href="/upcoming" className="block py-2 hover:bg-gray-100">Resources</a></li>
                   
-                  {!isAuthenticated && (
+                  {isAuthenticated ? (
+                    <button
+                      onClick={handleLogout}
+                      className="block w-full text-center py-2 border rounded-md mb-2 hover:bg-gray-50"
+                    >
+                      Logout
+                    </button>
+                  ) : (
                     <>
-                      <div className="border-t pt-4 mt-4">
-                        <a 
-                          href="/login" 
-                          className="block w-full text-center py-2 border rounded-md mb-2 hover:bg-gray-50"
-                        >
-                          Log in
-                        </a>
-                        <a 
-                          href="/signup" 
-                          className="block w-full text-center py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                        >
-                          Sign up
-                        </a>
-                      </div>
+                      <a href="/login" className="block w-full text-center py-2 border rounded-md mb-2 hover:bg-gray-50">
+                        Log in
+                      </a>
+                      <a href="/signup" className="block w-full text-center py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
+                        Sign up
+                      </a>
                     </>
                   )}
                 </ul>

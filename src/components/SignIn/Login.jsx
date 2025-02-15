@@ -30,44 +30,41 @@ const LoginPage = () => {
       } else {
         toast.success('Logged in with Google!');
         setTimeout(() => {
-          navigate("/");
+          window.location.href = "/";
         }, 1500);
-        navigate('/');
       }
     } catch (error) {
       toast.error('Error logging in with Google');
     }
-  };
+  };  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
     if (!credentials.email || !credentials.password) {
       toast.error("Please fill in both email and password fields.");
       return;
     }
-
+  
     try {
       const { user, error } = await supabase.auth.signInWithPassword({
         email: credentials.email,
         password: credentials.password,
       });
-
+  
       if (error) {
         toast.error(`Error logging in: ${error.message}`);
       } else {
         toast.success('User logged in successfully!');
         setTimeout(() => {
-          navigate("/");
+          window.location.href = "/";
         }, 1500);
-        console.log('User logged in:', user);
-        navigate("/");
       }
     } catch (error) {
       toast.error("Unexpected error occurred during login.");
-      console.error('Unexpected error:');
+      console.error('Unexpected error:', error);
     }
-  };
+  };  
 
   return (
     <div className="min-h-screen bg-white flex flex-col items-center justify-center px-4">
@@ -86,7 +83,7 @@ const LoginPage = () => {
             <input
               type="text"
               name="email"
-              placeholder="Phone number / email address"
+              placeholder="Email address"
               className="w-full px-4 py-3 rounded-lg bg-gray-100 border border-gray-700 text-black placeholder-gray-400 focus:outline-none focus:border-blue-500"
               onChange={handleChange}
               value={credentials.email}
