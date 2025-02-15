@@ -28,3 +28,17 @@
     background: #f7f7f7;
   }
   
+  .loader-circle {
+    @apply w-10 h-10 border-2 border-blue-500 border-t-transparent rounded-full;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+  

@@ -39,7 +39,6 @@ export default function FAQ() {
     
     <div className="min-h-screen bg-gradient-to-br bg-white ">
       <div className="container mx-auto px-4 py-16">
-        {/* Header */}
         <div className="text-center mb-16">
           <div className="inline-block p-4 bg-white rounded-full shadow-sm mb-6">
             <HelpCircle className="w-12 h-12 text-primary" />
@@ -50,7 +49,6 @@ export default function FAQ() {
           </p>
         </div>
 
-        {/* FAQ Accordion */}
         <div className="max-w-3xl mx-auto space-y-4">
           {faqs.map((faq, index) => (
             <div
@@ -77,7 +75,6 @@ export default function FAQ() {
           ))}
         </div>
 
-        {/* Contact Support */}
         <div className="mt-16 text-center">
           <h2 className="text-2xl font-semibold text-gray-900 mb-4">Still have questions?</h2>
           <p className="text-gray-600 mb-6">

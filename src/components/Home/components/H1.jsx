@@ -98,13 +98,6 @@ const H1 = () => {
           Create private rooms, connect instantly, and chat with friends in complete privacy – your space, your rules!
           </p>
         </div>
-        {/* <div className="mt-4 flex justify-center">
-          <p className="text-sm text-zinc-600">
-            Press<kbd
-              className="pointer-events-none mx-0.5 inline-flex h-5 select-none items-center rounded border bg-zinc-100 px-1.5 font-mono font-medium text-zinc-600 opacity-100">S</kbd>to
-            get started
-          </p>
-        </div> */}
         <div className="mt-10 flex flex-col items-center gap-4 lg:mt-10">
           <p className="text-center: text-zinc-600 lg:text-left">
           Powering seamless, real-time connections with Socket.io – instant, private chats for you and your friends!
@@ -127,4 +120,4 @@ const H1 = () => {
   )
 }
 
-export default H1
+export default H1;

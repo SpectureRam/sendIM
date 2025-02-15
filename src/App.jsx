@@ -1,10 +1,9 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
-const SignIn = React.lazy(() => import("./components/SignIn/SignIn"));
+const SignIn = React.lazy(() => import("./components/SignIn/Login"));
 const SignUp = React.lazy(() => import("./components/Signup/SignUp"));
 const Home = React.lazy(() => import("./components/Home/Home"));
-const Sample = React.lazy(() => import('./components/Sample/Sample'));
 const Error = React.lazy(() => import('./components/ErrorPage/Error'));
 const ChatApp = React.lazy(() => import("./components/Application/ChatApp"));
 const TermsOfService = React.lazy(() => import('./pages/Legal/TermsofService'));
@@ -16,9 +15,12 @@ const FAQ = React.lazy(()=>import('./pages/Support/FAQ'))
 const Help = React.lazy(()=>import('./pages/Support/Help'))
 const ReportAbuse = React.lazy(()=>import('./pages/Support/ReportAbuse'))
 const CompanyPage = React.lazy(()=>import("./pages/About/Company"))
+const BuildingPage = React.lazy(()=> import("./components/Home/components/BuildingPage"))
 
 import ErrorBoundary from "./routes/errorBoundary";
 import ProtectedRoute from "./routes/protectedRoute";
+import Loader from "./components/Loader/Loader";
+
 function App() {
   return (
     <ErrorBoundary>
@@ -30,89 +32,82 @@ function App() {
       ))
       } */}
         <Route path='/' element={
-          <React.Suspense fallback={<div>Loading...!</div>}>
+          <React.Suspense fallback={<Loader/>}>
             <Home/>
           </React.Suspense>
         }/>
         <Route path='/login' element={
-          <React.Suspense fallback={<div>Loading...!</div>}>
+          <React.Suspense fallback={<Loader/>}>
             <SignIn/>
           </React.Suspense>
         }/>
         <Route path='/signup' element={
-          <React.Suspense fallback={<div>Loading...!</div>}>
+          <React.Suspense fallback={<Loader/>}>
             <SignUp/>
           </React.Suspense>
         }/>
         <Route path='/home' element={
-          <React.Suspense fallback={<div>Loading...!</div>}>
+          <React.Suspense fallback={<Loader/>}>
             <Home/>
           </React.Suspense>
         }/>
-        <Route path="/sample" element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
-              <Sample />
-            </React.Suspense>
-          } />
           <Route path="/chat" element={
-            <ProtectedRoute>
-              <React.Suspense fallback={<div>Loading...!</div>}>
+              <React.Suspense fallback={<Loader/>}>
                 <ChatApp />
               </React.Suspense>
-            </ProtectedRoute>
-          } />
-          <Route path="/chat1" element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
-              <ChatApp />
-            </React.Suspense>
           } />
           <Route path='/terms-of-service' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <TermsOfService />
             </React.Suspense>
           } />
           <Route path='/about-us' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <Aboutus />
             </React.Suspense>
           } />
           <Route path='/privacy-policy' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <PrivacyPolicy />
             </React.Suspense>
           } />
           <Route path='/cookie-policy' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <Cookies/>
             </React.Suspense>
           } />
           <Route path='/contact-us' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <Contactus />
             </React.Suspense>
           } />
           <Route path='/faq' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <FAQ />
             </React.Suspense>
           } />
           <Route path='/help' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <Help />
             </React.Suspense>
           } />
           <Route path='/report-abuse' element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <ReportAbuse />
             </React.Suspense>
           } />
           <Route path="/company" element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <CompanyPage />
             </React.Suspense>
           } />
+          <Route path="/upcoming" element={
+            <React.Suspense fallback={<Loader/>}>
+              <BuildingPage />
+            </React.Suspense>
+          } />
           <Route path="*" element={
-            <React.Suspense fallback={<div>Loading...!</div>}>
+            <React.Suspense fallback={<Loader/>}>
               <Error />
             </React.Suspense>
           } />

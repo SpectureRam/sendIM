@@ -105,7 +105,6 @@ const HelpPage = () => {
       <Navbar />
       <div className="min-h-screen bg-white">
         <div className="container mx-auto px-20 py-8">
-          {/* Header */}
           <div className="text-center mb-12">
             <div className="inline-block p-4 bg-white rounded-full shadow-sm mb-6">
               <HelpCircle className="w-12 h-12 text-primary" />
@@ -115,7 +114,6 @@ const HelpPage = () => {
               Find answers to common questions and learn how to make the most of your chat experience.
             </p>
             
-            {/* Search Bar */}
             <div className="max-w-xl mx-auto relative">
               <Search className="absolute left-4 top-3.5 h-5 w-5 text-gray-400" />
               <input
@@ -128,7 +126,6 @@ const HelpPage = () => {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
             {[
               {
@@ -164,7 +161,6 @@ const HelpPage = () => {
             ))}
           </div>
 
-          {/* FAQ Categories */}
           <div className="space-y-4">
             {filteredCategories.map((category) => (
               <div key={category.id} className="bg-white rounded-xl shadow-sm overflow-hidden">
@@ -201,7 +197,6 @@ const HelpPage = () => {
             ))}
           </div>
 
-          {/* Contact Support */}
           <div className="mt-12 text-center bg-white rounded-xl shadow-sm p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Still need help?</h2>
             <p className="text-gray-600 mb-6">

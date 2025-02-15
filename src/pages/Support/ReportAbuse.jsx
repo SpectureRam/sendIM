@@ -31,7 +31,6 @@ export default function ReportAbuse() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Handle form submission
     console.log('Selected type:', selectedType);
   };
 

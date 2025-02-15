@@ -174,11 +174,11 @@ const Footer = () => {
 
           <ul className="mt-6 space-y-4 text-sm">
             <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Login </a>
+              <a href="/login" className="text-gray-700 transition hover:opacity-75"> Login </a>
             </li>
 
             <li>
-              <a href="#" className="text-gray-700 transition hover:opacity-75"> Sign up </a>
+              <a href="/signup" className="text-gray-700 transition hover:opacity-75"> Sign up </a>
             </li>
           </ul>
         </div>
@@ -191,4 +191,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer;

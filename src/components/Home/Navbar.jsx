@@ -1,19 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
 import logo from "./../../assets/logo.png";
-import {auth} from "../../../firebase";
-import { signOut } from 'firebase/auth';
+import supabase from "../../../supabaseClient";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const dropdownTimerRef = useRef(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setIsAuthenticated(!!user);
+    const fetchUser = async () => {
+      const { data: { user: currentUser }, error } = await supabase.auth.getUser();
+      
+      if (error) {
+        console.error("Error fetching user:", error);
+        setUser(null);
+        setIsAuthenticated(false);
+      } else {
+        setUser(currentUser);
+        setIsAuthenticated(!!currentUser);
+      }
+    };
+
+    fetchUser();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((event, session) => {
+      setUser(session?.user || null);
+      setIsAuthenticated(!!session?.user);
     });
-    return () => unsubscribe();
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
   const handleMouseEnter = (menu) => {
@@ -37,6 +58,24 @@ const Navbar = () => {
     }, 200);
   };
 
+  const handleLogout = async () => {
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        toast.error('Error signing out. Please try again.');
+        console.error('Error logging out:', error);
+        return;
+      }
+      
+      navigate('/');
+      
+      toast.success('Logged out successfully');
+    } catch (error) {
+      toast.error('An unexpected error occurred');
+      console.error('Unexpected error during logout:', error);
+    }
+  }; 
+
   const UseCasesDropdown = () => (
     <div 
       onMouseEnter={handleDropdownMouseEnter}
@@ -45,21 +84,21 @@ const Navbar = () => {
     >
       <div className="grid grid-cols-1 gap-1">
         <a 
-          href="/use-cases/business" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           Business Solutions
           <p className="text-xs text-gray-500 mt-1">Optimize your business processes</p>
         </a>
         <a 
-          href="/use-cases/productivity" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           Productivity Tools
           <p className="text-xs text-gray-500 mt-1">Enhance workflow efficiency</p>
         </a>
         <a 
-          href="/use-cases/industries" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           Industry Applications
@@ -77,21 +116,21 @@ const Navbar = () => {
     >
       <div className="grid grid-cols-1 gap-1">
         <a 
-          href="/developers/api" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           API Documentation
           <p className="text-xs text-gray-500 mt-1">Comprehensive guide for integration</p>
         </a>
         <a 
-          href="/developers/sdk" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           SDK Resources
           <p className="text-xs text-gray-500 mt-1">Tools and libraries</p>
         </a>
         <a 
-          href="/developers/tutorials" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           Developer Tutorials
@@ -109,21 +148,21 @@ const Navbar = () => {
     >
       <div className="grid grid-cols-1 gap-1">
         <a 
-          href="/resources/blog" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           Blog & Insights
           <p className="text-xs text-gray-500 mt-1">Latest articles and thoughts</p>
         </a>
         <a 
-          href="/resources/community" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           Community Forums
           <p className="text-xs text-gray-500 mt-1">Connect with other users</p>
         </a>
         <a 
-          href="/resources/support" 
+          href="/upcoming" 
           className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors"
         >
           Support Center
@@ -152,7 +191,7 @@ const Navbar = () => {
                   onMouseLeave={handleMouseLeave}
                 >
                   <button 
-                    className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium 
+                    className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium
                       ${activeDropdown === 'useCases' ? 'bg-gray-100' : 'hover:bg-gray-100'}`}
                   >
                     Use Cases
@@ -205,7 +244,6 @@ const Navbar = () => {
               </ul>
             </div>
 
-            {/* Mobile Menu */}
             {isMobileMenuOpen && (
               <div className="absolute top-full left-0 w-full bg-white  shadow-md lg:hidden border-gray-600">
                 <div className="flex justify-between items-center p-4 border-b border-gray-300">
@@ -227,7 +265,6 @@ const Navbar = () => {
                   <li><a href="/developers" className="block py-2 border-b hover:bg-gray-100">Developers</a></li>
                   <li><a href="/resources" className="block py-2 hover:bg-gray-100">Resources</a></li>
                   
-                  {/* Added Login/Signup for mobile */}
                   {!isAuthenticated && (
                     <>
                       <div className="border-t pt-4 mt-4">
@@ -250,7 +287,6 @@ const Navbar = () => {
               </div>
             )}
 
-            {/* Desktop Auth Buttons */}
             <div className="hidden items-center gap-4 lg:flex">
               {isAuthenticated ? (
                 <button

@@ -83,7 +83,7 @@ const AboutUs = () => {
           <div className="flex justify-center">
             <div className="flex flex-col items-center">
               <img
-                src={"/api/placeholder/96/96"}
+                src="https://www.npmjs.com/npm-avatar/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdmF0YXJVUkwiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci82NGUxNDc5MDYxZDdjMGZiM2E5NTcxMjhlMDA0OWFmZj9zaXplPTQ5NiZkZWZhdWx0PXJldHJvIn0.eOeMwGQQOWU5h16KYArESMkmfFVxlqYifR_qHTyGCBQ"
                 alt={"Sairam N"}
                 className="w-24 h-24 rounded-full mb-4"
               />
