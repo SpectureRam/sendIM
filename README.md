@@ -79,8 +79,8 @@ This project is licensed under the **MIT License**.
 
 For any queries, feel free to reach out:
 
-- **Email**: [your-email@example.com](mailto\:your-email@example.com)
-- **GitHub**: [your-username](https://github.com/your-username)
+- **Email**: [ramphilo@gmail.com](mailto\:ramphilo@gmail.com)
+- **GitHub**: [SpectureRam](https://github.com/SpectureRam)
 - **Live Demo**: [sendim.vercel.app](https://sendim.vercel.app)
 
 ---
